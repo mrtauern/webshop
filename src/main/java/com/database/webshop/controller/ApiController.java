@@ -1,5 +1,6 @@
 package com.database.webshop.controller;
 
+import com.database.webshop.models.Categories;
 import com.database.webshop.models.Products;
 import com.database.webshop.service.ApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,5 +58,10 @@ public class ApiController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("api/categories")
+    public Iterable<Categories> getCategories() {
+        return service.getCategories();
     }
 }

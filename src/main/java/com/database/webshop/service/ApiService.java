@@ -1,5 +1,6 @@
 package com.database.webshop.service;
 
+import com.database.webshop.models.Categories;
 import com.database.webshop.models.Products;
 import org.springframework.stereotype.Service;
 
@@ -14,4 +15,6 @@ public interface ApiService {
     public Products getProductById(Long id);
 
     public void deleteProductById(Long id);
+
+    public List<Categories> getCategories();
 }

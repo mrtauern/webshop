@@ -5,8 +5,12 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
-@Entity
+@Entity(name = "Products")
 //@Table(name = "Products")
 /*@NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(name = "getProductList",
@@ -17,6 +21,7 @@ import java.sql.Timestamp;
                 },
                 resultClasses = Products.class)
 })*/
+@Table(name = "products")
 public class Products implements Serializable {
 
     @Id
@@ -47,10 +52,21 @@ public class Products implements Serializable {
     @Column
     private Timestamp create_date;
 
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "products_categories",
+            joinColumns = @JoinColumn(name = "ProductsID"),
+            inverseJoinColumns = @JoinColumn(name = "CategoriesID")
+    )
+    private List<Categories> categoriesList = new ArrayList<>();
+
+
     public Products() {
     }
 
-    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date) {
+    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, List<Categories> categoriesList) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -60,6 +76,7 @@ public class Products implements Serializable {
         this.picture = picture;
         this.thumbnail = thumbnail;
         this.create_date = create_date;
+        this.categoriesList = categoriesList;
     }
 
     public Long getID() {
@@ -132,5 +149,13 @@ public class Products implements Serializable {
 
     public void setCreate_date(Timestamp create_date) {
         this.create_date = create_date;
+    }
+
+    public List<Categories> getCategoriesList() {
+        return categoriesList;
+    }
+
+    public void setCategoriesList(List<Categories> categoriesList) {
+        this.categoriesList = categoriesList;
     }
 }
