@@ -7,7 +7,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "Products")
+//@Table(name = "Products")
 /*@NamedStoredProcedureQueries({
         @NamedStoredProcedureQuery(name = "getProductList",
                 procedureName = "get_product_list",
