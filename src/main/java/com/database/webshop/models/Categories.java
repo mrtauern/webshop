@@ -1,5 +1,8 @@
 package com.database.webshop.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,7 @@ public class Categories {
     @Column
     private Long main_category;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "categoriesList")
     private List<Products> products = new ArrayList<>();
 

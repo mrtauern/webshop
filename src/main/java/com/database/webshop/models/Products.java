@@ -1,5 +1,6 @@
 package com.database.webshop.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
@@ -52,6 +53,7 @@ public class Products implements Serializable {
     @Column
     private Timestamp create_date;
 
+    @JsonManagedReference
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
