@@ -21,9 +21,9 @@
         <tbody>
         <tr th:each="product : ${products}">
             <td th:text="${product.name}"></td>
-            <td th:text="${product.price + ' kr.'}"></td>
+            <td th:text="${#numbers.formatDecimal(product.price,1,2,'COMMA') + ' kr.'}"></td>
             <td th:text="${product.stock}"></td>
-            <td th:text="${product.weight}"></td>
+            <td th:text="${#numbers.formatDecimal(product.weight,1,2,'COMMA') + ' kg'}"></td>
         </tr>
         </tbody>
     </table>

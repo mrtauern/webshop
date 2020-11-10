@@ -1,23 +1,34 @@
 package com.database.webshop.models;
 
+import com.database.webshop.repositories.CustomerRepoImpl;
+import com.database.webshop.repositories.ProductRepo;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
 
 @Entity
 @Table(name = "Products")
 /*@NamedStoredProcedureQueries({
-        @NamedStoredProcedureQuery(name = "getProductList",
-                procedureName = "get_product_list",
-                parameters = {
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "amount", type = int.class),
-                        @StoredProcedureParameter(mode = ParameterMode.IN, name = "page_no", type = int.class)
-                },
-                resultClasses = Products.class)
+    @NamedStoredProcedureQuery(name = "getProductList",
+        procedureName = "get_product_list",
+        parameters = {
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "amount", type = int.class),
+            @StoredProcedureParameter(mode = ParameterMode.IN, name = "page_no", type = int.class)
+        },
+        resultClasses = Products.class)
 })*/
 public class Products implements Serializable {
+
+    @Transient
+    Logger log = Logger.getLogger(Products.class.getName());
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,10 +58,17 @@ public class Products implements Serializable {
     @Column
     private Timestamp create_date;
 
+    @Nullable
+    @ManyToMany(mappedBy = "Products_Categories")
+    private Set<Categories> productsCategories = new HashSet<>();
+
+    @Transient
+    DecimalFormat df = new DecimalFormat("#.00");
+
     public Products() {
     }
 
-    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date) {
+    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, @Nullable Set<Categories> productsCategories) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -60,6 +78,7 @@ public class Products implements Serializable {
         this.picture = picture;
         this.thumbnail = thumbnail;
         this.create_date = create_date;
+        this.productsCategories = productsCategories;
     }
 
     public Long getID() {
@@ -103,7 +122,9 @@ public class Products implements Serializable {
     }
 
     public double getWeight() {
-        return weight;
+        //log.info("price: " + weight);
+        return Double.parseDouble(df.format(weight).replace(",","."));
+        //return weight;
     }
 
     public void setWeight(double weight) {
