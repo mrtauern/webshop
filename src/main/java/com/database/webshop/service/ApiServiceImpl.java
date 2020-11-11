@@ -4,7 +4,6 @@ import com.database.webshop.models.Categories;
 import com.database.webshop.models.Products;
 import com.database.webshop.repositories.ApiRepo;
 import com.database.webshop.repositories.CategoriesRepo;
-import com.database.webshop.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ public class ApiServiceImpl implements ApiService {
 
     Logger log = Logger.getLogger(ApiService.class.getName());
 
-    //@Qualifier(value = "ApiRepo")
+    @Qualifier(value = "ApiRepo")
     @Autowired
     private ApiRepo apirepo;
 

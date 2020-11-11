@@ -62,11 +62,20 @@ public class Products implements Serializable {
     )
     private List<Categories> categoriesList = new ArrayList<>();
 
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    @JoinTable(name = "Products_Product_options",
+            joinColumns = @JoinColumn(name = "ProductsID"),
+            inverseJoinColumns = @JoinColumn(name = "Product_optionsID")
+    )
+    private List<Product_options> product_options = new ArrayList<>();
 
     public Products() {
     }
 
-    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, List<Categories> categoriesList) {
+    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, List<Categories> categoriesList, List<Product_options> product_options) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -77,6 +86,7 @@ public class Products implements Serializable {
         this.thumbnail = thumbnail;
         this.create_date = create_date;
         this.categoriesList = categoriesList;
+        this.product_options = product_options;
     }
 
     public Long getID() {
@@ -157,5 +167,13 @@ public class Products implements Serializable {
 
     public void setCategoriesList(List<Categories> categoriesList) {
         this.categoriesList = categoriesList;
+    }
+
+    public List<Product_options> getProduct_options() {
+        return product_options;
+    }
+
+    public void setProduct_options(List<Product_options> product_options) {
+        this.product_options = product_options;
     }
 }
