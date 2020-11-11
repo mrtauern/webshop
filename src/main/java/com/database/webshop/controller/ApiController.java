@@ -13,6 +13,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 public class ApiController {
+
     @Autowired
     private ApiService service;
 
@@ -63,5 +64,15 @@ public class ApiController {
     @GetMapping("api/categories")
     public Iterable<Categories> getCategories() {
         return service.getCategories();
+    }
+
+    @GetMapping("api/categories/{id}")
+    public ResponseEntity<Categories> getCategoriesById(@PathVariable Long id) {
+        try {
+            Categories categories = service.getCategoriesById(id);
+            return new ResponseEntity<>(categories, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }

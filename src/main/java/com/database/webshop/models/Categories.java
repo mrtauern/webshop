@@ -23,6 +23,7 @@ public class Categories {
     @Column
     private Long main_category;
 
+    //@JsonManagedReference
     @JsonBackReference
     @ManyToMany(mappedBy = "categoriesList")
     private List<Products> products = new ArrayList<>();

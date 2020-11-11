@@ -7,6 +7,7 @@ import com.database.webshop.repositories.CategoriesRepo;
 import com.database.webshop.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,5 +45,11 @@ public class ApiServiceImpl implements ApiService {
     public List<Categories> getCategories() {
         return categoriesRepo.findAll();
     }
+
+    @Override
+    public Categories getCategoriesById(Long id) {
+        return categoriesRepo.findById(id).get();
+    }
+
 
 }
