@@ -75,4 +75,23 @@ public class ApiController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @PostMapping("api/categories")
+    public void addCategory(@RequestBody Categories category) {
+        service.saveCategory(category);
+    }
+
+    @PutMapping("api/categories/{id}")
+    public ResponseEntity<?> updateCategoryById(@RequestBody Categories category, @PathVariable Long id) {
+
+        try {
+            Categories existCategory = service.getCategoriesById(id);
+            category.setID(existCategory.getID());
+            service.saveCategory(category);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

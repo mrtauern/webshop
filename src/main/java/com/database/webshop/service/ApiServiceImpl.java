@@ -18,10 +18,11 @@ public class ApiServiceImpl implements ApiService {
 
     Logger log = Logger.getLogger(ApiService.class.getName());
 
-    //@Qualifier(value = "ApiRepo")
+    @Qualifier(value = "ApiRepo")
     @Autowired
     private ApiRepo apirepo;
 
+    @Qualifier(value = "CategoriesRepo")
     @Autowired
     private CategoriesRepo categoriesRepo;
 
@@ -49,6 +50,16 @@ public class ApiServiceImpl implements ApiService {
     @Override
     public Categories getCategoriesById(Long id) {
         return categoriesRepo.findById(id).get();
+    }
+
+    @Override
+    public void addCategory(Categories category) {
+        categoriesRepo.save(category);
+    }
+
+    @Override
+    public void saveCategory(Categories category) {
+
     }
 
 
