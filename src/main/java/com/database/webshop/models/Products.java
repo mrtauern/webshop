@@ -1,5 +1,6 @@
 package com.database.webshop.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
@@ -52,6 +53,7 @@ public class Products implements Serializable {
     @Column
     private Timestamp create_date;
 
+    @JsonManagedReference
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -62,6 +64,7 @@ public class Products implements Serializable {
     )
     private List<Categories> categoriesList = new ArrayList<>();
 
+    @JsonManagedReference
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
@@ -70,12 +73,12 @@ public class Products implements Serializable {
             joinColumns = @JoinColumn(name = "ProductsID"),
             inverseJoinColumns = @JoinColumn(name = "Product_optionsID")
     )
-    private List<Product_options> product_options = new ArrayList<>();
+    private List<Product_options> productOptionsList = new ArrayList<>();
 
     public Products() {
     }
 
-    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, List<Categories> categoriesList, List<Product_options> product_options) {
+    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, List<Categories> categoriesList, List<Product_options> productOptionsList) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -86,7 +89,7 @@ public class Products implements Serializable {
         this.thumbnail = thumbnail;
         this.create_date = create_date;
         this.categoriesList = categoriesList;
-        this.product_options = product_options;
+        this.productOptionsList = productOptionsList;
     }
 
     public Long getID() {
@@ -169,11 +172,11 @@ public class Products implements Serializable {
         this.categoriesList = categoriesList;
     }
 
-    public List<Product_options> getProduct_options() {
-        return product_options;
+    public List<Product_options> getProductOptionsList() {
+        return productOptionsList;
     }
 
-    public void setProduct_options(List<Product_options> product_options) {
-        this.product_options = product_options;
+    public void setProductOptionsList(List<Product_options> productOptionsList) {
+        this.productOptionsList = productOptionsList;
     }
 }

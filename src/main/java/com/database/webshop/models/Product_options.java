@@ -1,11 +1,13 @@
 package com.database.webshop.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "Product_options")
-@Table(name = "Product_options")
+@Table(name = "product_options")
 public class Product_options {
 
     @Id
@@ -15,7 +17,8 @@ public class Product_options {
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "Products_Product_options")
+    @JsonBackReference
+    @ManyToMany(mappedBy = "productOptionsList")
     private List<Products> products  = new ArrayList<>();
 
     public Product_options() {

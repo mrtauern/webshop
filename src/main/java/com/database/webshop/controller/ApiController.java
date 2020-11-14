@@ -1,8 +1,10 @@
 package com.database.webshop.controller;
 
 import com.database.webshop.models.Categories;
+import com.database.webshop.models.Product_options;
 import com.database.webshop.models.Products;
 import com.database.webshop.service.ApiService;
+import com.database.webshop.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +17,9 @@ import java.util.NoSuchElementException;
 public class ApiController {
     @Autowired
     private ApiService service;
+
+    @Autowired
+    private CustomerService customerService;
 
     @GetMapping("api/products")
     public Iterable<Products> listProducts() {
@@ -63,5 +68,10 @@ public class ApiController {
     @GetMapping("api/categories")
     public Iterable<Categories> getCategories() {
         return service.getCategories();
+    }
+
+    @GetMapping("api/product_options")
+    public Iterable<Product_options> listProduct_options() {
+        return customerService.findAll();
     }
 }
