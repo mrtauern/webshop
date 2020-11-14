@@ -1,5 +1,6 @@
 package com.database.webshop.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
@@ -55,13 +56,13 @@ public class Products implements Serializable {
 
     @JsonManagedReference
     @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
+            CascadeType.ALL
     })
     @JoinTable(name = "products_categories",
             joinColumns = @JoinColumn(name = "ProductsID"),
             inverseJoinColumns = @JoinColumn(name = "CategoriesID")
     )
+    @JsonIgnoreProperties("products")
     private List<Categories> categoriesList = new ArrayList<>();
 
     @JsonManagedReference

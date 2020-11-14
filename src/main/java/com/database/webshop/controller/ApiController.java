@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 public class ApiController {
+
     @Autowired
     private ApiService service;
 
@@ -74,4 +75,33 @@ public class ApiController {
     public Iterable<Product_options> listProduct_options() {
         return customerService.findAll();
     }
+
+    @GetMapping("api/categories/{id}")
+    public ResponseEntity<Categories> getCategoriesById(@PathVariable Long id) {
+        try {
+            Categories categories = service.getCategoriesById(id);
+            return new ResponseEntity<>(categories, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("api/categories")
+    public void addCategory(@RequestBody Categories category) {
+        service.saveCategory(category);
+    }
+
+    @PutMapping("api/categories/{id}")
+    public ResponseEntity<?> updateCategoryById(@RequestBody Categories category, @PathVariable Long id) {
+
+        try {
+            Categories existCategory = service.getCategoriesById(id);
+            category.setID(existCategory.getID());
+            service.saveCategory(category);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }

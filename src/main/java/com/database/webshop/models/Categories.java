@@ -1,6 +1,8 @@
 package com.database.webshop.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -24,18 +26,18 @@ public class Categories {
 
     @JsonBackReference
     @ManyToMany(mappedBy = "categoriesList")
-    private List<Products> products = new ArrayList<>();
+    private List<Products> productsList = new ArrayList<>();
 
     public Categories() {
     }
 
-    public Categories(Long ID, String name, String description, String thumbnail, Long main_category, List<Products> products) {
+    public Categories(Long ID, String name, String description, String thumbnail, Long main_category, List<Products> productsList) {
         this.ID = ID;
         this.name = name;
         this.description = description;
         this.thumbnail = thumbnail;
         this.main_category = main_category;
-        this.products = products;
+        this.productsList = productsList;
     }
 
     public Long getID() {
@@ -79,10 +81,10 @@ public class Categories {
     }
 
     public List<Products> getProducts() {
-        return products;
+        return productsList;
     }
 
-    public void setPosts(List<Products> products) {
-        this.products = products;
+    public void setPosts(List<Products> productsList) {
+        this.productsList = productsList;
     }
 }

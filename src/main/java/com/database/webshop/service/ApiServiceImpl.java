@@ -6,6 +6,7 @@ import com.database.webshop.repositories.ApiRepo;
 import com.database.webshop.repositories.CategoriesRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class ApiServiceImpl implements ApiService {
     @Autowired
     private ApiRepo apirepo;
 
+    @Qualifier(value = "CategoriesRepo")
     @Autowired
     private CategoriesRepo categoriesRepo;
 
@@ -43,5 +45,21 @@ public class ApiServiceImpl implements ApiService {
     public List<Categories> getCategories() {
         return categoriesRepo.findAll();
     }
+
+    @Override
+    public Categories getCategoriesById(Long id) {
+        return categoriesRepo.findById(id).get();
+    }
+
+    @Override
+    public void addCategory(Categories category) {
+        categoriesRepo.save(category);
+    }
+
+    @Override
+    public void saveCategory(Categories category) {
+
+    }
+
 
 }

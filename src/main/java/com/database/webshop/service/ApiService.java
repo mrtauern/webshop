@@ -2,7 +2,9 @@ package com.database.webshop.service;
 
 import com.database.webshop.models.Categories;
 import com.database.webshop.models.Products;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -17,4 +19,8 @@ public interface ApiService {
     public void deleteProductById(Long id);
 
     public List<Categories> getCategories();
+
+    public Categories getCategoriesById(Long id);
+    public void addCategory(Categories category);
+    public void saveCategory(Categories category);
 }
