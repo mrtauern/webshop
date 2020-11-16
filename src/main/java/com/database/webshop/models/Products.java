@@ -1,5 +1,6 @@
 package com.database.webshop.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -70,16 +71,24 @@ public class Products implements Serializable {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "Products_Product_options",
+    @JoinTable(name = "products_product_options",
             joinColumns = @JoinColumn(name = "ProductsID"),
             inverseJoinColumns = @JoinColumn(name = "Product_optionsID")
     )
     private List<Product_options> productOptionsList = new ArrayList<>();
 
+    @JsonManagedReference
+    @OneToMany(mappedBy="product")
+    private Set<Items> items;
+
+    @JsonManagedReference
+    @OneToMany(mappedBy="product")
+    private Set<Reviews> reviews;
+
     public Products() {
     }
 
-    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, List<Categories> categoriesList, List<Product_options> productOptionsList) {
+    public Products(Long ID, String name, String description, double price, Integer stock, double weight, String picture, String thumbnail, Timestamp create_date, List<Categories> categoriesList, List<Product_options> productOptionsList, Set<Items> items, Set<Reviews> reviews) {
         this.ID = ID;
         this.name = name;
         this.description = description;
@@ -91,6 +100,8 @@ public class Products implements Serializable {
         this.create_date = create_date;
         this.categoriesList = categoriesList;
         this.productOptionsList = productOptionsList;
+        this.items = items;
+        this.reviews = reviews;
     }
 
     public Long getID() {
@@ -179,5 +190,21 @@ public class Products implements Serializable {
 
     public void setProductOptionsList(List<Product_options> productOptionsList) {
         this.productOptionsList = productOptionsList;
+    }
+
+    public Set<Items> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<Items> items) {
+        this.items = items;
+    }
+
+    public Set<Reviews> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(Set<Reviews> reviews) {
+        this.reviews = reviews;
     }
 }

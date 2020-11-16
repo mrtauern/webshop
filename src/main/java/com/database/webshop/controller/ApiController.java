@@ -1,10 +1,7 @@
 package com.database.webshop.controller;
 
-import com.database.webshop.models.Categories;
-import com.database.webshop.models.Product_options;
-import com.database.webshop.models.Products;
-import com.database.webshop.service.ApiService;
-import com.database.webshop.service.CustomerService;
+import com.database.webshop.models.*;
+import com.database.webshop.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +18,15 @@ public class ApiController {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private ItemService itemService;
+
+    @Autowired
+    private ReviewService reviewService;
 
     @GetMapping("api/products")
     public Iterable<Products> listProducts() {
@@ -102,6 +108,21 @@ public class ApiController {
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("api/orders")
+    public List<Orders> getOrders() {
+        return orderService.findAll();
+    }
+
+    @GetMapping("api/items")
+    public List<Items> getItems() {
+        return itemService.findAll();
+    }
+
+    @GetMapping("api/reviews")
+    public List<Reviews> getReviews() {
+        return reviewService.findAll();
     }
 
 }
