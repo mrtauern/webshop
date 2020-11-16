@@ -2,8 +2,8 @@ package com.database.webshop.service;
 
 import com.database.webshop.models.Categories;
 import com.database.webshop.models.Products;
-import com.database.webshop.repositories.ApiRepo;
 import com.database.webshop.repositories.CategoriesRepo;
+import com.database.webshop.repositories.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
@@ -17,28 +17,28 @@ public class ApiServiceImpl implements ApiService {
 
     Logger log = Logger.getLogger(ApiService.class.getName());
 
-    @Qualifier(value = "ApiRepo")
+    @Qualifier(value = "ProductRepo")
     @Autowired
-    private ApiRepo apirepo;
+    private ProductRepo productRepo;
 
     @Qualifier(value = "CategoriesRepo")
     @Autowired
     private CategoriesRepo categoriesRepo;
 
     public List<Products> listAll() {
-        return apirepo.findAll();
+        return productRepo.findAll();
     }
 
     public void save(Products products) {
-        apirepo.save(products);
+        productRepo.save(products);
     }
 
     public Products getProductById(Long id) {
-        return apirepo.findById(id).get();
+        return productRepo.findById(id).get();
     }
 
     public void deleteProductById(Long id) {
-        apirepo.deleteById(id);
+        productRepo.deleteById(id);
     }
 
     @Override
