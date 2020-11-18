@@ -110,9 +110,59 @@ public class ApiController {
         }
     }
 
+    @DeleteMapping("api/categories/{id}")
+    public ResponseEntity<?> deleteCategoryById(@PathVariable Long id) {
+        try {
+            Categories exists = service.getCategoriesById(id);
+            service.deleteCategoryById(exists.getID());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("api/orders")
     public List<Orders> getOrders() {
         return orderService.findAll();
+    }
+
+    @GetMapping("api/orders/{id}")
+    public ResponseEntity<Orders> getOrderById(@PathVariable Long id) {
+        try {
+            Orders order = orderService.getOrderById(id);
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("api/orders")
+    public void addOrders(@RequestBody Orders order) {
+        orderService.saveOrder(order);
+    }
+
+    @PutMapping("api/orders/{id}")
+    public ResponseEntity<?> updateOrderById(@RequestBody Orders order, @PathVariable Long id) {
+
+        try {
+            Orders existOrder = orderService.getOrderById(id);
+            order.setID(existOrder.getID());
+            orderService.saveOrder(order);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("api/orders/{id}")
+    public ResponseEntity<?> deleteOrderById(@PathVariable Long id) {
+        try {
+            Orders exists = orderService.getOrderById(id);
+            orderService.deleteOrderById(exists.getID());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("api/items")
@@ -120,9 +170,87 @@ public class ApiController {
         return itemService.findAll();
     }
 
+    @GetMapping("api/items/{id}")
+    public ResponseEntity<Items> getItemById(@PathVariable Long id) {
+        try {
+            Items item = itemService.getItemById(id);
+            return new ResponseEntity<>(item, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("api/items")
+    public void addItems(@RequestBody Items item) {
+        itemService.saveItem(item);
+    }
+
+    @PutMapping("api/items/{id}")
+    public ResponseEntity<?> updateItemById(@RequestBody Items item, @PathVariable Long id) {
+
+        try {
+            Items existItem = itemService.getItemById(id);
+            item.setID(existItem.getID());
+            itemService.saveItem(item);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("api/items/{id}")
+    public ResponseEntity<?> deleteItemById(@PathVariable Long id) {
+        try {
+            Items exists = itemService.getItemById(id);
+            itemService.deleteItemById(exists.getID());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
     @GetMapping("api/reviews")
     public List<Reviews> getReviews() {
         return reviewService.findAll();
+    }
+
+    @GetMapping("api/reviews/{id}")
+    public ResponseEntity<Reviews> getReviewById(@PathVariable Long id) {
+        try {
+            Reviews review = reviewService.getReviewById(id);
+            return new ResponseEntity<>(review, HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @PostMapping("api/reviews")
+    public void addReview(@RequestBody Reviews review) {
+        reviewService.saveReview(review);
+    }
+
+    @PutMapping("api/reviews/{id}")
+    public ResponseEntity<?> updateReviewById(@RequestBody Reviews review, @PathVariable Long id) {
+
+        try {
+            Reviews existReview = reviewService.getReviewById(id);
+            review.setID(existReview.getID());
+            reviewService.saveReview(review);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping("api/reviews/{id}")
+    public ResponseEntity<?> deleteReviewById(@PathVariable Long id) {
+        try {
+            Reviews exists = reviewService.getReviewById(id);
+            reviewService.deleteReviewById(exists.getID());
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NoSuchElementException e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
 }

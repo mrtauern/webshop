@@ -20,4 +20,24 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Reviews> findAll() {
         return reviewRepo.findAll();
     }
+
+    @Override
+    public Reviews getReviewById(Long id) {
+        return reviewRepo.findById(id).get();
+    }
+
+    @Override
+    public void addReview(Reviews review) {
+        reviewRepo.save(review);
+    }
+
+    @Override
+    public void saveReview(Reviews review) {
+        reviewRepo.save(review);
+    }
+
+    @Override
+    public void deleteReviewById(Long id) {
+        reviewRepo.deleteById(id);
+    }
 }

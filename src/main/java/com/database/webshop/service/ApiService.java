@@ -23,4 +23,6 @@ public interface ApiService {
     public Categories getCategoriesById(Long id);
     public void addCategory(Categories category);
     public void saveCategory(Categories category);
+
+    public void deleteCategoryById(Long id);
 }

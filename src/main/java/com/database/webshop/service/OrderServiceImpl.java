@@ -1,5 +1,6 @@
 package com.database.webshop.service;
 
+import com.database.webshop.models.Categories;
 import com.database.webshop.models.Orders;
 import com.database.webshop.models.Products;
 import com.database.webshop.repositories.OrderRepo;
@@ -20,4 +21,25 @@ public class OrderServiceImpl implements OrderService {
     public List<Orders> findAll() {
         return orderRepo.findAll();
     }
+
+    @Override
+    public Orders getOrderById(Long id) {
+        return orderRepo.findById(id).get();
+    }
+
+    @Override
+    public void addOrder(Orders order) {
+        orderRepo.save(order);
+    }
+
+    @Override
+    public void saveOrder(Orders order) {
+        orderRepo.save(order);
+    }
+
+    @Override
+    public void deleteOrderById(Long id) {
+        orderRepo.deleteById(id);
+    }
+
 }

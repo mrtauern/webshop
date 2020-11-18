@@ -58,7 +58,11 @@ public class ApiServiceImpl implements ApiService {
 
     @Override
     public void saveCategory(Categories category) {
+        categoriesRepo.save(category);
+    }
 
+    public void deleteCategoryById(Long id) {
+        categoriesRepo.deleteById(id);
     }
 
 
